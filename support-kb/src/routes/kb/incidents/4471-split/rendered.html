@@ -3,19 +3,19 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="../../_app/immutable/entry/start.Cs4yamA4.js" rel="modulepreload">
+    <link href="../../_app/immutable/entry/start.BXnshRRb.js" rel="modulepreload">
 		<link href="../../_app/immutable/chunks/BRBoGxEg.js" rel="modulepreload">
-		<link href="../../_app/immutable/chunks/C1WAZBOB.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/CafSYOV2.js" rel="modulepreload">
 		<link href="../../_app/immutable/chunks/B7gpAEZE.js" rel="modulepreload">
-		<link href="../../_app/immutable/entry/app.Ct4lb4Kc.js" rel="modulepreload">
+		<link href="../../_app/immutable/entry/app.CAW-045H.js" rel="modulepreload">
 		<link href="../../_app/immutable/chunks/erQFi9V2.js" rel="modulepreload">
 		<link href="../../_app/immutable/chunks/CFIRgj-b.js" rel="modulepreload">
 		<link href="../../_app/immutable/chunks/BWIL0xEn.js" rel="modulepreload">
 		<link href="../../_app/immutable/chunks/BRna_V0P.js" rel="modulepreload">
 		<link href="../../_app/immutable/nodes/0.CP7PlE5K.js" rel="modulepreload">
 		<link href="../../_app/immutable/chunks/tluWRpHD.js" rel="modulepreload">
-		<link href="../../_app/immutable/nodes/5.C8PEwuqY.js" rel="modulepreload">
-		<link href="../../_app/immutable/chunks/BRMKulWc.js" rel="modulepreload">
+		<link href="../../_app/immutable/nodes/5.BUMt7IFQ.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/HJnmEHoN.js" rel="modulepreload">
 		<link href="../../_app/immutable/chunks/BQcooQc3.js" rel="modulepreload">
 		<link href="../../_app/immutable/chunks/C8eJrkKU.js" rel="modulepreload">
 		<link href="../../_app/immutable/chunks/yS27-GNt.js" rel="modulepreload">
@@ -43,9 +43,10 @@ the way <code>fingerprint.ts</code> reads it — by the reporter’s place and t
 subject intake guessed — and the night held <strong>three issues</strong>, not one.</p> <p class="sum svelte-c2qaf7"><strong>412</strong> reports merged into #4471 · <strong>3</strong> issues</p> <table><thead><tr><th>place</th><th>code</th><th>reports</th><th>tagged as</th><th>people</th><th>seen</th><th></th></tr></thead><tbody><!--[--><tr class="svelte-c2qaf7"><td class="svelte-c2qaf7">sched-prod</td><td class="svelte-c2qaf7"><code>E-TZ-114</code></td><td class="svelte-c2qaf7">349</td><td class="tags svelte-c2qaf7">sched-prod ×349</td><td class="svelte-c2qaf7">206</td><td class="svelte-c2qaf7">03:12 → 06:13</td><td class="svelte-c2qaf7">#4471</td></tr><tr class="svelte-c2qaf7 wrong"><td class="svelte-c2qaf7">tram-3</td><td class="svelte-c2qaf7"><code>E-TZ-114</code></td><td class="svelte-c2qaf7">44</td><td class="tags svelte-c2qaf7">tram-3 ×41 · sched-prod ×3</td><td class="svelte-c2qaf7">26</td><td class="svelte-c2qaf7">03:33 → 06:11</td><td class="svelte-c2qaf7">not this ticket — no ticket of its own</td></tr><tr class="svelte-c2qaf7 wrong"><td class="svelte-c2qaf7">rota-6</td><td class="svelte-c2qaf7"><code>E-SYNC-04</code></td><td class="svelte-c2qaf7">19</td><td class="tags svelte-c2qaf7">rota-6 ×13 · sched-prod ×6</td><td class="svelte-c2qaf7">9</td><td class="svelte-c2qaf7">03:27 → 06:08</td><td class="svelte-c2qaf7">not this ticket — no ticket of its own</td></tr><!--]--></tbody></table><!----> <h2>What was really in the queue</h2> <ul><li><strong><code>sched-prod:E-TZ-114</code></strong> — the ticket’s own issue. Thursday’s shifts shown an hour late.
 Fixed by change #29 at 06:15; the queue went quiet.</li> <li><strong><code>tram-3:E-TZ-114</code></strong> — same code, different place: a different bug by the desk’s own rule.
 Departure boards and platform screens an hour behind the timetable; “next tram in 61
-minutes, it is here now”. Merged into #4471 anyway. No ticket of its own.</li> <li><strong><code>rota-6:E-SYNC-04</code></strong> — not a timezone bug at all. The night rota listed twice, an hour
+minutes, it is here now”. Merged into #4471 anyway.
+Ticket filed: <a href="https://github.com/RafalWojciechRolsky/mega-what-it-shows/issues/2" rel="nofollow">mega-what-it-shows#2</a>.</li> <li><strong><code>rota-6:E-SYNC-04</code></strong> — not a timezone bug at all. The night rota listed twice, an hour
 apart, “which one is real?” Six of these reports were mis-tagged <code>sched-prod</code> by intake.
-No ticket of its own.</li></ul> <aside class="warn svelte-17bri61"><!---->Client codes ride along in report bodies — E-UI-31 screens reloading, E-NET-03 offline.
+Ticket filed: <a href="https://github.com/RafalWojciechRolsky/mega-what-it-shows/issues/3" rel="nofollow">mega-what-it-shows#3</a>.</li></ul> <aside class="warn svelte-17bri61"><!---->Client codes ride along in report bodies — E-UI-31 screens reloading, E-NET-03 offline.
 Worth reading, never what a report is filed under. They are not tickets.<!----></aside><!----> <h2>What the count hides</h2> <ul><li>The export carries <strong>427 rows for 412 reports</strong>: the ticket system exports in overlapping
 pages, and fifteen reports are in it twice. <code>uniqueById</code> collapses them — 412 is real, but
 only after dedupe.</li> <li><strong>R-41200 is not a report.</strong> It is the 03:12 job’s own output — “status: clean
@@ -60,15 +61,15 @@ computed from the data at render — if the export changes, this page shows it.<
 			
 			<script>
 				{
-					__sveltekit_14ahot1 = {
+					__sveltekit_vmq1rt = {
 						base: new URL("../..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../../_app/immutable/entry/start.Cs4yamA4.js"),
-						import("../../_app/immutable/entry/app.Ct4lb4Kc.js")
+						import("../../_app/immutable/entry/start.BXnshRRb.js"),
+						import("../../_app/immutable/entry/app.CAW-045H.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 5],

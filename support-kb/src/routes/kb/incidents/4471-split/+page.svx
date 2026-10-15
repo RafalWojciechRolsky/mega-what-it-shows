@@ -26,10 +26,11 @@ subject intake guessed — and the night held **three issues**, not one.
   Fixed by change #29 at 06:15; the queue went quiet.
 - **`tram-3:E-TZ-114`** — same code, different place: a different bug by the desk's own rule.
   Departure boards and platform screens an hour behind the timetable; "next tram in 61
-  minutes, it is here now". Merged into #4471 anyway. No ticket of its own.
+  minutes, it is here now". Merged into #4471 anyway.
+  Ticket filed: [mega-what-it-shows#2](https://github.com/RafalWojciechRolsky/mega-what-it-shows/issues/2).
 - **`rota-6:E-SYNC-04`** — not a timezone bug at all. The night rota listed twice, an hour
   apart, "which one is real?" Six of these reports were mis-tagged `sched-prod` by intake.
-  No ticket of its own.
+  Ticket filed: [mega-what-it-shows#3](https://github.com/RafalWojciechRolsky/mega-what-it-shows/issues/3).
 
 <Callout kind="warn">
 Client codes ride along in report bodies — E-UI-31 screens reloading, E-NET-03 offline.
