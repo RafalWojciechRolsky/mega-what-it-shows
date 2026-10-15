@@ -1,0 +1,131 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>#4471 · what the export shows · support kb</title>
+<style>
+:root { --bg:#fbfaf7; --fg:#1d1d1b; --muted:#6b6a66; --line:#e3e0d8; --accent:#2f6f5e; --warn:#b4501f; --warn-bg:#fbeee6; --note-bg:#eef5f2; --mono:ui-monospace,'Cascadia Code',Menlo,monospace; }
+@media (prefers-color-scheme:dark) { :root { --bg:#171716; --fg:#ecebe6; --muted:#9c9a93; --line:#34332f; --accent:#6fbfa6; --warn:#f0905d; --warn-bg:#3a2418; --note-bg:#1d2c27; } }
+body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 system-ui,sans-serif; }
+.kb table { border-collapse:collapse; width:100%; margin:1rem 0; font-size:.92rem; }
+.kb th,.kb td { border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; }
+.kb code { font-family:var(--mono); font-size:.88em; }
+.kb a { color:var(--accent); }
+.kb { max-width:760px; margin:0 auto; padding:2rem 16px 4rem; }
+.crumb { font:.8rem var(--mono); text-decoration:none; color:var(--muted); }
+h1 { margin:.25rem 0 .5rem; line-height:1.2; }
+.meta { display:flex; flex-wrap:wrap; gap:.5rem 1rem; color:var(--muted); font-size:.85rem; margin:0; }
+.status { border:1px solid var(--line); border-radius:99px; padding:0 .6rem; }
+.stale { color:var(--warn); font-weight:600; }
+footer { margin-top:3rem; color:var(--muted); font-size:.8rem; border-top:1px solid var(--line); padding-top:1rem; }
+.sum { font-size:1.1rem; }
+.tags { color:var(--muted); font-size:.85em; }
+.wrong td { background:var(--warn-bg); }
+.wrong td:last-child { color:var(--warn); font-weight:600; }
+aside { border-left:4px solid var(--accent); padding:.5rem 1rem; margin:1rem 0; background:var(--note-bg); }
+aside.warn { border-color:var(--warn); background:var(--warn-bg); }
+figure svg { width:100%; max-width:640px; }
+.in { fill:var(--warn); } .merged { fill:var(--accent); }
+figure text { font:8px var(--mono); fill:var(--muted); text-anchor:middle; }
+figcaption { color:var(--muted); font-size:.85rem; }
+.key { display:inline-block; width:.7em; height:.7em; border-radius:2px; }
+.key.in { background:var(--warn); } .key.merged { background:var(--accent); }
+.stamp { margin:2rem 0 0; font:.85rem var(--mono); color:var(--muted); }
+.stamp b { color:var(--accent); letter-spacing:.04em; }
+</style></head><body>
+<div class="kb">
+<header>
+<a class="crumb" href="/kb">support desk · kb</a>
+<h1>#4471 · what the export shows</h1>
+<p class="meta"><span>owner <b>rolsky</b></span><span class="status living">living</span><span>reviewed 2026-10-15 · 0 days ago</span></p>
+</header>
+<main>
+<p><a href="/kb/incidents/4471">#4471</a> closed with one line: "all 412 are one issue." Read the export
+the way <code>fingerprint.ts</code> reads it — by the reporter's place and the server code, not the
+subject intake guessed — and the night held <strong>three issues</strong>, not one.</p>
+
+<p class="sum"><strong>412</strong> reports merged into #4471 · <strong>3</strong> issues</p>
+<table><thead><tr><th>place</th><th>code</th><th>reports</th><th>tagged as</th><th>people</th><th>seen</th><th></th></tr></thead>
+<tbody><tr class=""><td>sched-prod</td><td><code>E-TZ-114</code></td><td>349</td><td class="tags">sched-prod ×349</td><td>206</td><td>03:12 → 06:13</td><td>#4471</td></tr>
+<tr class="wrong"><td>tram-3</td><td><code>E-TZ-114</code></td><td>44</td><td class="tags">tram-3 ×41 · sched-prod ×3</td><td>26</td><td>03:33 → 06:11</td><td>not this ticket — no ticket of its own</td></tr>
+<tr class="wrong"><td>rota-6</td><td><code>E-SYNC-04</code></td><td>19</td><td class="tags">rota-6 ×13 · sched-prod ×6</td><td>9</td><td>03:27 → 06:08</td><td>not this ticket — no ticket of its own</td></tr>
+</tbody></table>
+
+<h2>What was really in the queue</h2>
+<ul>
+<li><strong><code>sched-prod:E-TZ-114</code></strong> — the ticket's own issue. Thursday's shifts shown an hour late. Fixed by change #29 at 06:15; the queue went quiet.</li>
+<li><strong><code>tram-3:E-TZ-114</code></strong> — same code, different place: a different bug by the desk's own rule. Departure boards and platform screens an hour behind the timetable; "next tram in 61 minutes, it is here now". Merged into #4471 anyway. No ticket of its own.</li>
+<li><strong><code>rota-6:E-SYNC-04</code></strong> — not a timezone bug at all. The night rota listed twice, an hour apart, "which one is real?" Six of these reports were mis-tagged <code>sched-prod</code> by intake. No ticket of its own.</li>
+</ul>
+
+<aside class="warn">Client codes ride along in report bodies — E-UI-31 screens reloading, E-NET-03 offline.
+Worth reading, never what a report is filed under. They are not tickets.</aside>
+
+<h2>What the count hides</h2>
+<ul>
+<li>The export carries <strong>427 rows for 412 reports</strong>: the ticket system exports in overlapping pages, and fifteen reports are in it twice. <code>uniqueById</code> collapses them — 412 is real, but only after dedupe.</li>
+<li><strong>R-41200 is not a report.</strong> It is the 03:12 job's own output — "status: clean (E-TZ-114)" — merged at 05:00 with everything else. The job saw the error code at 03:12 and called the run clean; the first human report landed at 03:19.</li>
+<li>Merging ran <strong>05:00 → 06:27</strong> while reports still arrived. For twenty-two minutes after the fix, new reports kept landing in a ticket already closed — including rota-6 and tram-3 reports nobody ever opened.</li>
+</ul>
+
+<h2>The night</h2>
+<figure><svg viewBox="0 0 384 140" role="img" aria-label="reports received and merged into #4471, per 15 minutes"><rect class="in" x="2" y="108.6" width="9" height="1.4" />
+<rect class="merged" x="12" y="110.0" width="9" height="0.0" />
+<text x="6" y="103.6">1</text>
+<text x="12" y="128">03:00</text>
+<rect class="in" x="26" y="96.3" width="9" height="13.7" />
+<rect class="merged" x="36" y="110.0" width="9" height="0.0" />
+<text x="30" y="91.3">10</text>
+<rect class="in" x="50" y="78.5" width="9" height="31.5" />
+<rect class="merged" x="60" y="110.0" width="9" height="0.0" />
+<text x="54" y="73.5">23</text>
+<rect class="in" x="74" y="62.1" width="9" height="47.9" />
+<rect class="merged" x="84" y="110.0" width="9" height="0.0" />
+<text x="78" y="57.1">35</text>
+<rect class="in" x="98" y="63.4" width="9" height="46.6" />
+<rect class="merged" x="108" y="110.0" width="9" height="0.0" />
+<text x="102" y="58.4">34</text>
+<text x="108" y="128">04:00</text>
+<rect class="in" x="122" y="64.8" width="9" height="45.2" />
+<rect class="merged" x="132" y="110.0" width="9" height="0.0" />
+<text x="126" y="59.8">33</text>
+<rect class="in" x="146" y="51.1" width="9" height="58.9" />
+<rect class="merged" x="156" y="110.0" width="9" height="0.0" />
+<text x="150" y="46.1">43</text>
+<rect class="in" x="170" y="55.2" width="9" height="54.8" />
+<rect class="merged" x="180" y="110.0" width="9" height="0.0" />
+<text x="174" y="50.2">40</text>
+<rect class="in" x="194" y="53.8" width="9" height="56.2" />
+<rect class="merged" x="204" y="19.6" width="9" height="90.4" />
+<text x="198" y="48.8">41</text>
+<text x="204" y="128">05:00</text>
+<rect class="in" x="218" y="68.9" width="9" height="41.1" />
+<rect class="merged" x="228" y="11.4" width="9" height="98.6" />
+<text x="222" y="63.9">30</text>
+<rect class="in" x="242" y="52.5" width="9" height="57.5" />
+<rect class="merged" x="252" y="12.7" width="9" height="97.3" />
+<text x="246" y="47.5">42</text>
+<rect class="in" x="266" y="56.6" width="9" height="53.4" />
+<rect class="merged" x="276" y="12.7" width="9" height="97.3" />
+<text x="270" y="51.6">39</text>
+<rect class="in" x="290" y="53.8" width="9" height="56.2" />
+<rect class="merged" x="300" y="10.0" width="9" height="100.0" />
+<text x="294" y="48.8">41</text>
+<text x="300" y="128">06:00</text>
+<rect class="in" x="314" y="110.0" width="9" height="0.0" />
+<rect class="merged" x="324" y="29.2" width="9" height="80.8" />
+<rect class="in" x="338" y="110.0" width="9" height="0.0" />
+<rect class="merged" x="348" y="110.0" width="9" height="0.0" />
+<rect class="in" x="362" y="110.0" width="9" height="0.0" />
+<rect class="merged" x="372" y="110.0" width="9" height="0.0" />
+</svg>
+<figcaption><span class="key in"></span> received · <span class="key merged"></span> merged into #4471 · per 15 minutes</figcaption></figure>
+
+<h2>Lessons</h2>
+<ul>
+<li>Subject matching merged fast and merged wrong. Two of the three issues in this ticket had no ticket of their own when the desk declared "one issue, one fix".</li>
+<li>Merge on place and server code (<code>fingerprint</code>), not on the subject a tired reporter typed at 4 a.m. — see <a href="/kb/decisions/0001-dedupe-by-subject">decision 0001</a> for the rule that caused this.</li>
+<li>The export is the ground truth; a page is a claim. The table and the chart above are computed from the data at render — if the export changes, this page shows it.</li>
+</ul>
+</main>
+<p class="stamp">desk ref <b>DR-TG5X-46ED</b></p>
+<footer>Pages are written by people. Tables and charts are built from data at render time.</footer>
+</div>
+</body></html>

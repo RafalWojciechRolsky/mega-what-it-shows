@@ -1,0 +1,63 @@
+---
+layout: runbook
+title: '#4471 · what the export shows'
+owner: rolsky
+status: living
+reviewed: 2026-10-15
+signature: 'v1.eyJzdWIiOiIxNDgiLCJhdWQiOiJjaGFsbGVuZ2U6d2hhdC1pdC1zaG93cyIsImlhdCI6MTc5MjA3MTEwMCwiZXhwIjoxNzkyMTU3NTAwfQ.0_g8IgaHxSH6v9D768lO8eOqd9ztrsPLeNdSC_75bPU'
+---
+
+<script>
+  import ClusterTable from '#lib/kb/ClusterTable.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+[#4471](/kb/incidents/4471) closed with one line: "all 412 are one issue." Read the export
+the way `fingerprint.ts` reads it — by the reporter's place and the server code, not the
+subject intake guessed — and the night held **three issues**, not one.
+
+<ClusterTable ticket={4471} />
+
+## What was really in the queue
+
+- **`sched-prod:E-TZ-114`** — the ticket's own issue. Thursday's shifts shown an hour late.
+  Fixed by change #29 at 06:15; the queue went quiet.
+- **`tram-3:E-TZ-114`** — same code, different place: a different bug by the desk's own rule.
+  Departure boards and platform screens an hour behind the timetable; "next tram in 61
+  minutes, it is here now". Merged into #4471 anyway. No ticket of its own.
+- **`rota-6:E-SYNC-04`** — not a timezone bug at all. The night rota listed twice, an hour
+  apart, "which one is real?" Six of these reports were mis-tagged `sched-prod` by intake.
+  No ticket of its own.
+
+<Callout kind="warn">
+Client codes ride along in report bodies — E-UI-31 screens reloading, E-NET-03 offline.
+Worth reading, never what a report is filed under. They are not tickets.
+</Callout>
+
+## What the count hides
+
+- The export carries **427 rows for 412 reports**: the ticket system exports in overlapping
+  pages, and fifteen reports are in it twice. `uniqueById` collapses them — 412 is real, but
+  only after dedupe.
+- **R-41200 is not a report.** It is the 03:12 job's own output — "status: clean
+  (E-TZ-114)" — merged at 05:00 with everything else. The job saw the error code at 03:12
+  and called the run clean; the first human report landed at 03:19.
+- Merging ran **05:00 → 06:27** while reports still arrived. For twenty-two minutes after
+  the fix, new reports kept landing in a ticket already closed — including rota-6 and tram-3
+  reports nobody ever opened.
+
+<QueueTimeline ticket={4471} />
+
+## Lessons
+
+- Subject matching merged fast and merged wrong. Two of the three issues in this ticket had
+  no ticket of their own when the desk declared "one issue, one fix".
+- Merge on place and server code (`fingerprint`), not on the subject a tired reporter typed
+  at 4 a.m. — see [decision 0001](/kb/decisions/0001-dedupe-by-subject) for the rule that
+  caused this.
+- The export is the ground truth; a page is a claim. The table and the chart above are
+  computed from the data at render — if the export changes, this page shows it.
+
+<RenderStamp {signature} />
