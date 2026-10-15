@@ -18,6 +18,7 @@ const config = {
   ],
   kit: {
     adapter: adapter({ fallback: undefined }),
+    paths: { relative: true },
     prerender: { entries: ['*'] }
   }
 };
